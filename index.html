@@ -1,3 +1,24 @@
+<button class="install-btn" onclick="window.location.href='next.html'" style="position: absolute; top: 1rem; right: 1rem;">Next Page</button>
+<style>
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 20% 30%, #00e0ff44 0%, transparent 70%),
+                radial-gradient(circle at 80% 70%, #00e0ff22 0%, transparent 80%);
+    animation: bgmove 10s linear infinite alternate;
+  }
+
+  @keyframes bgmove {
+    0% {
+      background-position: 20% 30%, 80% 70%;
+    }
+    100% {
+      background-position: 30% 40%, 70% 60%;
+    }
+  }
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,12 +107,7 @@
       </div>
     </div>
 
-    <div class="game-card">
-            <div class="game-content">
-        <div class="game-title">The End Way Online</div>
-        <button class="install-btn" onclick="window.location.href='https://dl.patchkit.net/d/1meuwmrkyqia3yze24yij/direct'">Install</button>
-      </div>
-    </div>
+
 
     <div class="game-card">
             <div class="game-content">
@@ -107,3 +123,4 @@
   </script>
 </body>
 </html>
+<h1>By Keer</h1>
