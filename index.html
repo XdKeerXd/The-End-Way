@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The End Way - Gaming Experience</title>
+  <meta name="description" content="Experience epic gaming adventures with The End Way series. Download The End Way 1 and Online multiplayer games created by Ahmed Jaballah (Keer)." />
+  <meta name="keywords" content="The End Way, gaming, adventure games, multiplayer, Ahmed Jaballah, Keer, download games" />
+  <meta name="author" content="Ahmed Jaballah (Keer)" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The End Way - Gaming Experience" />
+  <meta property="og:description" content="Epic Gaming Adventures Await - Download The End Way series games" />
+  <meta property="og:site_name" content="The End Way" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The End Way - Gaming Experience" />
+  <meta name="twitter:description" content="Epic Gaming Adventures Await - Download The End Way series games" />
+  
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://dl.patchkit.net" crossorigin />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      color: #ffffff;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(0, 224, 255, 0.1);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    header {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 224, 255, 0.2);
+      position: relative;
+      will-change: transform;
+    }
+
+    .main-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(45deg, #00e0ff, #0099ff, #00e0ff);
+      background-size: 200% 200%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 3s ease-in-out infinite;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 30px rgba(0, 224, 255, 0.3);
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 300;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(15px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 224, 255, 0.1);
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    nav a:hover {
+      background: rgba(0, 224, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 224, 255, 0.2);
+    }
+
+    nav a:hover::before {
+      left: 100%;
+    }
+
+    nav a:focus-visible {
+      outline: 2px solid #00e0ff;
+      outline-offset: 2px;
+    }
+
+    .games-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2.5rem;
+      width: 90%;
+      max-width: 1400px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+
+    .game-card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid rgba(0, 224, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(50px);
+      will-change: transform, opacity;
+    }
+
+    .game-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #00e0ff, #0099ff, #00e0ff);
+      background-size: 200% 100%;
+      animation: shimmer 2s linear infinite;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    .game-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 224, 255, 0.2);
+      border-color: rgba(0, 224, 255, 0.4);
+    }
+
+    .game-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .game-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #00e0ff;
+      text-align: center;
+    }
+
+    .game-description {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .install-btn {
+      background: linear-gradient(45deg, #00e0ff, #0099ff);
+      color: #000;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .install-btn:not(:disabled):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(0, 224, 255, 0.4);
+    }
+
+    .install-btn:not(:disabled):active {
+      transform: translateY(0);
+    }
+
+    .install-btn:not(:disabled):focus-visible {
+      outline: 2px solid #00e0ff;
+      outline-offset: 2px;
+    }
+
+    .install-btn:disabled {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      cursor: not-allowed;
+    }
+
+    .install-btn.clicked {
+      transform: scale(0.95);
+    }
+
+    .install-btn.loading {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .install-btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid transparent;
+      border-top: 2px solid #000;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 3rem 2rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(0, 224, 255, 0.1);
+    }
+
+    .content p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s ease-out;
+    }
+
+    .content p.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .plan-list {
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      padding: 0 2rem;
+    }
+
+    .plan-header {
+      text-align: center;
+      margin: 4rem auto 3rem;
+      padding: 0 2rem;
+    }
+
+    .plan-main-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(45deg, #00e0ff, #0099ff, #00e0ff);
+      background-size: 200% 200%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 3s ease-in-out infinite;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 30px rgba(0, 224, 255, 0.3);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .plan-main-title.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .plan-item {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      margin: 1.5rem 0;
+      padding: 2rem;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 224, 255, 0.2);
+      font-size: 1.2rem;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateX(-50px);
+      will-change: transform, opacity;
+    }
+
+    .plan-item.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .plan-item:hover {
+      transform: translateX(10px);
+      border-color: rgba(0, 224, 255, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 224, 255, 0.1);
+    }
+
+    footer {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(0, 224, 255, 0.1);
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(45deg, #00e0ff, #0099ff);
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(100px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 10px 25px rgba(0, 224, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #000;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 224, 255, 0.4);
+    }
+
+    .scroll-top:focus-visible {
+      outline: 2px solid #00e0ff;
+      outline-offset: 2px;
+    }
+
+    /* Loading state for sections */
+    .section-loading {
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Skip link for accessibility */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #00e0ff;
+      color: #000;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 1000;
+      transition: top 0.3s;
+    }
+
+    .skip-link:focus {
+      top: 6px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        gap: 1.5rem;
+        padding: 1rem;
+        flex-wrap: wrap;
+      }
+      
+      nav a {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+      }
+      
+      .games-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin: 2rem auto;
+      }
+      
+      .game-card {
+        padding: 1.5rem;
+      }
+
+      .content {
+        margin: 2rem auto;
+        padding: 2rem 1rem;
+      }
+
+      header {
+        padding: 2rem 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .plan-item {
+        padding: 1.5rem;
+        font-size: 1rem;
+      }
+
+      footer {
+        padding: 2rem 1rem;
+      }
+    }
+
+    /* Reduce motion for users who prefer it */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      
+      .particle {
+        animation: none;
+      }
+      
+      .main-title {
+        animation: none;
+        background: #00e0ff;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Animated background -->
+  <div class="bg-animation" id="bgAnimation" aria-hidden="true"></div>
+
+  <header>
+    <h1 class="main-title">The End Way</h1>
+    <p class="subtitle">Epic Gaming Adventures Await</p>
+  </header>
+
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="#home" aria-label="Go to Home section">Home</a>
+    <a href="#about" aria-label="Go to About section">About</a>
+    <a href="#nextplan" aria-label="Go to Next Plan section">Next Plan</a>
+  </nav>
+
+  <main id="main-content">
+    <!-- Home Section -->
+    <section id="home" aria-labelledby="games-heading">
+      <h2 id="games-heading" class="sr-only">Available Games</h2>
+      <div class="games-container">
+        <article class="game-card">
+          <h3 class="game-title">The End Way 1</h3>
+          <p class="game-description">The beginning of an epic journey. Experience the original adventure that started it all.</p>
+          <button class="install-btn" onclick="handleDownload(this, 'https://dl.patchkit.net/d/62eju2ye4yracfywdbgat/direct')" 
+                  aria-label="Download The End Way 1 game">Download Now</button>
+        </article>
+
+        <article class="game-card">
+          <h3 class="game-title">The End Way Online</h3>
+          <p class="game-description">Connect with players worldwide in this multiplayer experience. Battle together or against each other.</p>
+          <button class="install-btn" onclick="handleDownload(this, 'https://dl.patchkit.net/d/1meuwmrkyqia3yze24yij/direct')" 
+                  aria-label="Download The End Way Online game">Download Now</button>
+        </article>
+
+        <article class="game-card">
+          <h3 class="game-title">The End Way 2D</h3>
+          <p class="game-description">Experience classic 2D gameplay with modern mechanics. A perfect blend of retro and contemporary gaming.</p>
+          <button class="install-btn" onclick="handleDownload(this, 'https://dl.patchkit.net/d/2ms5lpsgr949geg15jz0k/direct')" 
+                  aria-label="Download The End Way 2D game">Download Now</button>
+        </article>
+
+        <article class="game-card">
+          <h3 class="game-title">The End Way 2</h3>
+          <p class="game-description">The highly anticipated sequel is in development. New worlds, new challenges, new adventures.</p>
+          <button class="install-btn" disabled aria-label="The End Way 2 is coming soon">Coming Soon</button>
+        </article>
+      
+              <article class="game-card">
+          <h3 class="game-title">The End Way 2 Online </h3>
+          <p class="game-description">Experience classic 2D gameplay with modern mechanics. A perfect blend of retro and contemporary gaming.</p>
+          <button class="install-btn" onclick="handleDownload(this, 'https://dl.patchkit.net/d/29gjbbi01sx470f3rls5u/direct')" 
+                  aria-label="Download The End Way 2D game">Download Now</button>
+        </article>
+        
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-heading">
+      <div class="content">
+        <h2 id="about-heading" class="sr-only">About the Developer</h2>
+        <p>
+          My name is <strong>Ahmed Jaballah</strong>, also known as <strong>Keer</strong>.<br/>
+          I'm a passionate game developer who creates fun and unique gaming experiences.<br/>
+          I created <strong>The End Way</strong> series to bring excitement and adventure to players worldwide.
+        </p>
+      </div>
+    </section>
+
+    <!-- Next Plan Section -->
+    <section id="nextplan" aria-labelledby="plan-heading">
+      <h2 id="plan-heading" class="sr-only">Development Roadmap</h2>
+      <div class="plan-list" role="list">
+        <div class="plan-item" role="listitem">✅ The End Way 1</div>
+        <div class="plan-item" role="listitem">🔥 The End Way Hardcore</div>
+        <div class="plan-item" role="listitem">🚧 The End Way 2 (In Progress)</div>
+        <div class="plan-item" role="listitem">🌐 The End Way 2 Online (Planned)</div>
+        <div class="plan-item" role="listitem">🚀 The End Way 3 (Planned)</div>
+        <div class="plan-item" role="listitem">📈 The End Way Mobile (Future)</div>
+        <div class="plan-item" role="listitem">🎮 The End Way VR (Future)</div>
+        <div class="plan-item" role="listitem">🌟 The End Way Ultimate Edition (Future)</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 The End Way. All rights reserved. | Crafted with passion by Keer</p>
+  </footer>
+
+  <!-- Scroll to top button -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+  <script>
+    // Performance and error tracking
+    const perf = {
+      start: performance.now(),
+      marks: new Map()
+    };
+
+    // Mark performance points
+    function markPerf(name) {
+      perf.marks.set(name, performance.now() - perf.start);
+    }
+
+    // Debounced scroll handler
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // Throttled function for high-frequency events
+    function throttle(func, limit) {
+      let inThrottle;
+      return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      }
+    }
+
+    // Enhanced download handler with better UX
+    function handleDownload(button, url) {
+      // Add loading state
+      button.classList.add('loading');
+      const originalText = button.textContent;
+      button.textContent = 'Preparing...';
+      
+      try {
+        // Open download in new tab
+        const link = window.open(url, '_blank');
+        
+        // Check if popup was blocked
+        if (!link || link.closed || typeof link.closed === 'undefined') {
+          throw new Error('Popup blocked');
+        }
+        
+        // Reset button after delay
+        setTimeout(() => {
+          button.classList.remove('loading');
+          button.textContent = originalText;
+        }, 2000);
+        
+      } catch (error) {
+        // Fallback to direct navigation
+        window.location.href = url;
+        
+        setTimeout(() => {
+          button.classList.remove('loading');
+          button.textContent = originalText;
+        }, 1000);
+      }
+    }
+
+    // Optimized particle creation with performance controls
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = window.innerWidth < 768 ? 10 : 20; // Fewer particles on mobile
+      
+      // Clear existing particles
+      bgAnimation.innerHTML = '';
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.width = particle.style.height = (Math.random() * 4 + 2) + 'px';
+        particle.style.animationDelay = Math.random() * 6 + 's';
+        particle.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        bgAnimation.appendChild(particle);
+      }
+      
+      markPerf('particles-created');
+    }
+
+    // Enhanced intersection observer for better performance
+    let animationObserver;
+    
+    function initScrollAnimations() {
+      const elements = document.querySelectorAll('.game-card, .plan-item, .content p, .plan-main-title');
+      
+      if ('IntersectionObserver' in window) {
+        animationObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add('visible');
+              }, index * 100);
+              animationObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '50px'
+        });
+        
+        elements.forEach(el => animationObserver.observe(el));
+      } else {
+        // Fallback for older browsers
+        elements.forEach(el => el.classList.add('visible'));
+      }
+      
+      markPerf('animations-initialized');
+    }
+
+    // Enhanced button click feedback
+    function initButtonFeedback() {
+      document.querySelectorAll('.install-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!btn.disabled && !btn.classList.contains('loading')) {
+            btn.classList.add('clicked');
+            setTimeout(() => btn.classList.remove('clicked'), 200);
+          }
+        });
+      });
+    }
+
+    // Improved smooth scroll with better performance
+    function initNavigationScroll() {
+      document.querySelectorAll('nav a, .skip-link').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href').substring(1);
+          const target = document.getElementById(targetId);
+          
+          if (target) {
+            const headerOffset = 80;
+            const elementPosition = target.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    }
+
+    // Optimized scroll handlers
+    const scrollTopBtn = document.getElementById('scrollTop');
+    let isScrolling = false;
+    
+    const handleScroll = throttle(() => {
+      const scrolled = window.pageYOffset;
+      
+      // Scroll to top button visibility
+      if (scrolled > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+      
+      // Parallax effect (only on desktop for performance)
+      if (window.innerWidth > 768) {
+        const header = document.querySelector('header');
+        header.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+      
+      isScrolling = false;
+    }, 16); // ~60fps
+
+    // Scroll to top with smooth animation
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && scrollTopBtn.classList.contains('visible')) {
+        scrollTopBtn.focus();
+      }
+    });
+
+    // Resize handler with debouncing
+    const handleResize = debounce(() => {
+      createParticles(); // Recreate particles with appropriate count
+      markPerf('resize-handled');
+    }, 250);
+
+    // Error handler for unhandled errors
+    window.addEventListener('error', (e) => {
+      console.warn('Non-critical error occurred:', e.error);
+    });
+
+    // Preload critical resources
+    function preloadResources() {
+      const links = [
+        'https://dl.patchkit.net/d/62eju2ye4yracfywdbgat/direct',
+        'https://dl.patchkit.net/d/1meuwmrkyqia3yze24yij/direct',
+        'https://dl.patchkit.net/d/2ms5lpsgr949geg15jz0k/direct'
+      ];
+      
+      links.forEach(url => {
+        const link = document.createElement('link');
+        link.rel = 'dns-prefetch';
+        link.href = url;
+        document.head.appendChild(link);
+      });
+    }
+
+    // Initialize everything when DOM is ready
+    function init() {
+      markPerf('init-start');
+      
+      // Add js-enabled class
+      document.body.classList.add('js-enabled');
+      
+      // Initialize components
+      createParticles();
+      initScrollAnimations();
+      initButtonFeedback();
+      initNavigationScroll();
+      preloadResources();
+      
+      // Set up event listeners
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('resize', handleResize, { passive: true });
+      
+      markPerf('init-complete');
+      
+      // Log performance metrics in development
+      if (window.location.hostname === 'localhost') {
+        console.log('Performance metrics:', Object.fromEntries(perf.marks));
+      }
+    }
+
+    // Initialize when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+    // Service worker registration for offline functionality
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // Register service worker for caching (optional)
+        // navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
